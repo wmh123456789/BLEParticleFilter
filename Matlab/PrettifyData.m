@@ -10,3 +10,4 @@ for i = 1:L
         j = j+1;
     end
 end
+newdata = newdata';
