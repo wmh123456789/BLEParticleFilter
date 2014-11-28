@@ -1,0 +1,1 @@
+每隔5m放了一个beacon，没隔3m测试的结果，蓝线是android，红线是iphone
