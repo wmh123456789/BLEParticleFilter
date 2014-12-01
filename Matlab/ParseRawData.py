@@ -64,8 +64,11 @@ def Rawdata2Dict_android(FilePath,MacFileter = ['']):
 			pass
 		else:
 			words = line.split()
+			Date = words[0]
+			Time = words[1]
 			MacAddr = words[2]
-			RSSI = words[3]
+			UUID = words[3]
+			RSSI = words[6]
 			if MacAddr in MacFileter or '' in MacFileter:
 				if MacAddr in SampleDict:  # if the mac already in dict
 					SampleDict[MacAddr]['RSSI'].append(RSSI)
@@ -82,8 +85,10 @@ Auto switch android/ios Rawdata2Dict
 def Rawdata2Dict(FilePath,DeviceFilter = ['']):
 	line = open(FilePath).readline()
 	if 'ios' in line.lower():
+		print 'Detected as an IOS record~'
 		return Rawdata2Dict_ios(FilePath,DeviceFilter)
 	elif 'android' in line.lower():
+		print 'Detected as an Android record~'
 		return Rawdata2Dict_android(FilePath,DeviceFilter)
 	else:
 		print 'Error: Cannot find the OS tag (ios/android) in the first line.'
@@ -92,8 +97,8 @@ def Rawdata2Dict(FilePath,DeviceFilter = ['']):
 
 def GenMatlabFile(FilePath,MacFileter = ['']):
 	# SampleDict = Rawdata2Dict_ios(FilePath,MacFileter)
-	SampleDict = Rawdata2Dict_android(FilePath,MacFileter)
-	# SampleDict = Rawdata2Dict(FilePath,MacFileter)
+	# SampleDict = Rawdata2Dict_android(FilePath,MacFileter)
+	SampleDict = Rawdata2Dict(FilePath,MacFileter)
 	RootDir,FileName = os.path.split(FilePath)
 	# Android: MacAddr is key, IOS: Major-Minpr is key
 	for key in SampleDict:
@@ -114,7 +119,7 @@ def GenMatlabFile(FilePath,MacFileter = ['']):
 # GenMatlabFile(RawFile)
 
 
-RootDir = 'E:\= Workspaces\Git\BLEParticleFilter\Test\StillTest\\141120\\n5l'
+RootDir = 'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\BLE_20141128'
 for FileName in os.listdir(RootDir):
 	if '.txt' in FileName:
 		RawFile = os.path.join(RootDir,FileName)
