@@ -35,15 +35,16 @@ def Rawdata2Dict_ios(FilePath,Fileter = ['']):
 			pass 
 		else:			# Data body
 			words = line.split()
-			UUID = words[0]
-			MAJOR = words[1]
-			MINOR = words[2]
-			RSSI = words[3]
-			ID = MAJOR+'-'+MINOR
-			if ID in SampleDict: # if the major-minor already in dict
-				SampleDict[ID]['RSSI'].append(RSSI)
-			else: 				# if a new major-minor is found
-				SampleDict.update({ID:{'RSSI':[RSSI],'MAJOR':MAJOR,'MINOR':MINOR,'UUID':UUID}})
+			if len(words)>3:
+				UUID = words[0]
+				MAJOR = words[1]
+				MINOR = words[2]
+				RSSI = words[3]
+				ID = MAJOR+'-'+MINOR
+				if ID in SampleDict: # if the major-minor already in dict
+					SampleDict[ID]['RSSI'].append(RSSI)
+				else: 				# if a new major-minor is found
+					SampleDict.update({ID:{'RSSI':[RSSI],'MAJOR':MAJOR,'MINOR':MINOR,'UUID':UUID}})
 	return SampleDict
 
 '''
@@ -64,18 +65,19 @@ def Rawdata2Dict_android(FilePath,MacFileter = ['']):
 			pass
 		else:
 			words = line.split()
-			Date = words[0]
-			Time = words[1]
-			MacAddr = words[2]
-			UUID = words[3]
-			RSSI = words[6]
-			if MacAddr in MacFileter or '' in MacFileter:
-				if MacAddr in SampleDict:  # if the mac already in dict
-					SampleDict[MacAddr]['RSSI'].append(RSSI)
+			if len(words)>6:
+				Date = words[0]
+				Time = words[1]
+				MacAddr = words[2]
+				UUID = words[3]
+				RSSI = words[6]
+				if MacAddr in MacFileter or '' in MacFileter:
+					if MacAddr in SampleDict:  # if the mac already in dict
+						SampleDict[MacAddr]['RSSI'].append(RSSI)
+						pass
+					else:
+						SampleDict.update({MacAddr:{'RSSI':[RSSI]}}) # if a new mac is found
 					pass
-				else:
-					SampleDict.update({MacAddr:{'RSSI':[RSSI]}}) # if a new mac is found
-				pass
 	return SampleDict
 
 
@@ -119,7 +121,7 @@ def GenMatlabFile(FilePath,MacFileter = ['']):
 # GenMatlabFile(RawFile)
 
 
-RootDir = 'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\BLE_20141128'
+RootDir = 'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\\2468m'
 for FileName in os.listdir(RootDir):
 	if '.txt' in FileName:
 		RawFile = os.path.join(RootDir,FileName)
