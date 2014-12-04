@@ -61,7 +61,7 @@ def Rawdata2Dict_android(FilePath,MacFileter = ['']):
 	SampleDict = {}
 	FormartConversion_android(FilePath)
 	for line in open(FilePath,'r').readlines():
-		if '//' in line or len(line)<1: # Comments or blank line
+		if '//' in line or 'Timestamp' in line or len(line)<6: # Comments or blank line
 			pass
 		else:
 			words = line.split()
@@ -102,18 +102,46 @@ def GenMatlabFile(FilePath,MacFileter = ['']):
 	# SampleDict = Rawdata2Dict_android(FilePath,MacFileter)
 	SampleDict = Rawdata2Dict(FilePath,MacFileter)
 	RootDir,FileName = os.path.split(FilePath)
-	print SampleDict.keys()
-	# # Android: MacAddr is key, IOS: Major-Minpr is key
-	# for key in SampleDict:
-	# 	# New file name : oldname_mac.txt
-	# 	NewFile = os.path.splitext(FileName)[0]+'_'+key.replace(':','_')+'.csv'
-	# 	fp = open(os.path.join(RootDir,NewFile),'w')
-	# 	for RSSI in SampleDict[key]['RSSI']:
-	# 		if not RSSI in ['0','127']:
-	# 			fp.write(RSSI+'\n')
-	# 	fp.close()
+	# print SampleDict.keys()
+	# Android: MacAddr is key, IOS: Major-Minpr is key
+	for key in SampleDict:
+		# New file name : oldname_mac.txt
+		# NewFile = os.path.splitext(FileName)[0]+'_'+key.replace(':','_')+'.csv'
+		NewFile = os.path.splitext(FileName)[0]+'_'+Mac2Tag(key)+'.csv'
+		print NewFile
+		fp = open(os.path.join(RootDir,NewFile),'w')
+		for RSSI in SampleDict[key]['RSSI']:
+			if not RSSI in ['0','127']:
+				fp.write(RSSI+'\n')
+		fp.close()
 
 def Mac2Tag(MacAddr):
+	MacDict = { 'D0:39:72:E8:06:94':'wh', 
+				'D0:39:72:E8:05:69':'wg', 
+				'B4:99:4C:8A:D1:EF':'we', 
+				'1E:09:97:2C:45:33':'da', 
+				'34:17:47:B3:BE:F2':'db', 
+				'3B:91:83:A3:05:03':'dc', 
+				'B4:99:4C:8A:B2:D9':'wd', 
+				'01:17:C5:38:BE:39':'sb', 
+				'B4:99:4C:8A:C1:5E':'wa', 
+				'01:17:C5:39:78:41':'sa', 
+				'B4:99:4C:8A:AE:9F':'wf', 
+				'78:A5:04:41:68:A3':'bg', 
+				'78:A5:04:41:5D:F9':'bb', 
+				'B4:99:4C:8A:C7:D4':'wc', 
+				'78:A5:04:41:3A:32':'bf', 
+				'78:A5:04:41:3A:23':'bd', 
+				'B4:99:4C:8A:C1:5A':'wb', 
+				'78:A5:04:41:5A:26':'bc', 
+				'78:A5:04:41:37:B5':'ba', 
+				'31:84:A8:BD:76:67':'dd', 
+				'78:A5:04:41:2A:C1':'be', 
+				'01:17:C5:33:28:18':'sc', 
+				'78:A5:04:41:17:41':'bh',
+				'01:17:C5:1A:74:DB':'sd' }
+
+	return MacDict[MacAddr]
 	pass
 
 
@@ -126,7 +154,7 @@ def Mac2Tag(MacAddr):
 # GenMatlabFile(RawFile)
 
 
-RootDir = u'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\\20141202FixDis'
+RootDir = u'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\\20141201NineP\\8M'
 for FileName in os.listdir(RootDir):
 	if '.txt' in FileName:
 		RawFile = os.path.join(RootDir,FileName)
