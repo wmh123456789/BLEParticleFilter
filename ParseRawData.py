@@ -102,15 +102,20 @@ def GenMatlabFile(FilePath,MacFileter = ['']):
 	# SampleDict = Rawdata2Dict_android(FilePath,MacFileter)
 	SampleDict = Rawdata2Dict(FilePath,MacFileter)
 	RootDir,FileName = os.path.split(FilePath)
-	# Android: MacAddr is key, IOS: Major-Minpr is key
-	for key in SampleDict:
-		# New file name : oldname_mac.txt
-		NewFile = os.path.splitext(FileName)[0]+'_'+key.replace(':','_')+'.csv'
-		fp = open(os.path.join(RootDir,NewFile),'w')
-		for RSSI in SampleDict[key]['RSSI']:
-			if not RSSI in ['0','127']:
-				fp.write(RSSI+'\n')
-		fp.close()
+	print SampleDict.keys()
+	# # Android: MacAddr is key, IOS: Major-Minpr is key
+	# for key in SampleDict:
+	# 	# New file name : oldname_mac.txt
+	# 	NewFile = os.path.splitext(FileName)[0]+'_'+key.replace(':','_')+'.csv'
+	# 	fp = open(os.path.join(RootDir,NewFile),'w')
+	# 	for RSSI in SampleDict[key]['RSSI']:
+	# 		if not RSSI in ['0','127']:
+	# 			fp.write(RSSI+'\n')
+	# 	fp.close()
+
+def Mac2Tag(MacAddr):
+	pass
+
 
 
 # RootDir = 'E:\= Workspaces\Git\BLEParticleFilter\Test'
@@ -121,7 +126,7 @@ def GenMatlabFile(FilePath,MacFileter = ['']):
 # GenMatlabFile(RawFile)
 
 
-RootDir = 'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\\2468m'
+RootDir = u'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\\20141202FixDis'
 for FileName in os.listdir(RootDir):
 	if '.txt' in FileName:
 		RawFile = os.path.join(RootDir,FileName)
