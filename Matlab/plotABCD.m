@@ -1,6 +1,7 @@
 type = {'s','b','w','d'};
 loc = {'a','b','c','d'};
-dis = {'2m','4m','6m','8m'};
+% dis = {'2m','4m','6m','8m'};
+dis = {'3m','5m','7m','9m'};
 color = 'rgbm';
 
 % i_type = 2;

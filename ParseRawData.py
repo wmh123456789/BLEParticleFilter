@@ -141,7 +141,11 @@ def Mac2Tag(MacAddr):
 				'78:A5:04:41:17:41':'bh',
 				'01:17:C5:1A:74:DB':'sd' }
 
-	return MacDict[MacAddr]
+	if MacAddr in MacDict.keys():
+		return MacDict[MacAddr]
+	else:
+		print 'Unkown Mac:', MacAddr
+		return 'UnkownMac'
 	pass
 
 
@@ -154,7 +158,7 @@ def Mac2Tag(MacAddr):
 # GenMatlabFile(RawFile)
 
 
-RootDir = u'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\\20141201NineP\\8M'
+RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141208FixDis\Black'
 for FileName in os.listdir(RootDir):
 	if '.txt' in FileName:
 		RawFile = os.path.join(RootDir,FileName)
