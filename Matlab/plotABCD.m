@@ -9,9 +9,9 @@ color = 'rgbm';
 % i_dis = 2;
 % i_color =1;
 i_P = 0;
-for i_type = 1:1
-    for i_loc = 1:3
-        for i_dis = 4:4
+for i_type = 2:2
+    for i_loc = 1:2
+        for i_dis = 1:4
 
 % % Plot RSSI curve
 % figure(1);
@@ -23,13 +23,21 @@ i_P = i_P +1;
 
 % Fit Weibull/norm distribute
 % P(i_P,:) = wblfit(-1*eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
-[P(i_P,1) P(i_P,2)] = normfit(-1*eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
+% [P(i_P,1) P(i_P,2)] = normfit(-1*eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
+
+% Plot Weibull/Norm fit 
+figure(i_P);
+pdf = 'wbl';
+plotpdffit(eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])),pdf);
 
 % Plot as a Weibull/Norm
 % figure(i_P);
 % title(cell2mat([type(i_type) loc(i_loc) dis(i_dis)]));
 % normplot(-1*eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
 % wblplot(-1*eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
+
+
+
 
         end
     end
