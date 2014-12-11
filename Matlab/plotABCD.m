@@ -1,7 +1,7 @@
 type = {'s','b','w','d'};
 loc = {'a','b','c','d'};
-% dis = {'2m','4m','6m','8m'};
-dis = {'3m','5m','7m','9m'};
+dis = {'2m','4m','6m','8m'};
+% dis = {'3m','5m','7m','9m'};
 color = 'rgbm';
 
 % i_type = 2;
@@ -9,8 +9,8 @@ color = 'rgbm';
 % i_dis = 2;
 % i_color =1;
 i_P = 0;
-for i_type = 2:2
-    for i_loc = 1:2
+for i_type = 2:3
+    for i_loc = 1:4
         for i_dis = 1:4
 
 % % Plot RSSI curve
@@ -27,8 +27,9 @@ i_P = i_P +1;
 
 % Plot Weibull/Norm fit 
 figure(i_P);
-pdf = 'wbl';
-plotpdffit(eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])),pdf);
+% pdf = 'wbl';
+plotpdffit(eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])),'wbl');
+plotpdffit(eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])),'norm');
 
 % Plot as a Weibull/Norm
 % figure(i_P);
