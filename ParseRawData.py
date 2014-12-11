@@ -155,16 +155,7 @@ def TXT2CSV(RootDir):
 			RawFile = os.path.join(RootDir,FileName)
 			GenMatlabFile(RawFile)
 
-def CollectDataInPoint(FileName):
-	# Get name of the point
 
-
-	# Read data in this point
-	
-
-	# Deal with data
-
-	pass
 
 
 
