@@ -10,7 +10,7 @@ color = 'rgbm';
 % i_dis = 2;
 % i_color =1;
 i_P = 0;
-for i_type = 2:2
+for i_type = 3:3
     for i_loc = 1:1
         for i_dis = 1:8
 
@@ -26,8 +26,7 @@ i_P = i_P +1;
 % P(i_P,:) = wblfit(-1*eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
 % [P(i_P,1) P(i_P,2)] = normfit(-1*eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
 [P(i_P,1) P(i_P,2) P(i_P,3)] =  CalcWblParam(eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
-P(i_P,4) = P(i_P,1)+ P(i_P,3);
-P(i_P,5) = mean(eval(cell2mat([type(i_type) loc(i_loc) dis(i_dis)])));
+
 
 % Plot Weibull/Norm fit 
 figure(i_P);

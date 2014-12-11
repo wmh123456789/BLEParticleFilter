@@ -149,24 +149,33 @@ def Mac2Tag(MacAddr):
 	pass
 
 
+def TXT2CSV(RootDir):
+	for FileName in os.listdir(RootDir):
+		if '.txt' in FileName:
+			RawFile = os.path.join(RootDir,FileName)
+			GenMatlabFile(RawFile)
 
-# RootDir = 'E:\= Workspaces\Git\BLEParticleFilter\Test'
-# FileName = 'iphone-4.txt'
-# RawFile = os.path.join(RootDir,FileName)
-# MacFileter = ['01:17:C5:38:BE:39']
-
-# GenMatlabFile(RawFile)
-
-
-RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141208FixDis\Black'
-for FileName in os.listdir(RootDir):
-	if '.txt' in FileName:
-		RawFile = os.path.join(RootDir,FileName)
-		GenMatlabFile(RawFile)
+def CollectDataInPoint(FileName):
+	# Get name of the point
 
 
+	# Read data in this point
+	
 
-# FormartConversion_android(RawFile)
+	# Deal with data
 
-# soup = SoupFile(RawFile)
+	pass
+
+
+
+
+
+
+def main():
+	RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
+	TXT2CSV(RootDir)
+
+
+if __name__ == '__main__':
+	main()
 

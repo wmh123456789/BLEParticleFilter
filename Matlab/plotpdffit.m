@@ -2,7 +2,7 @@ function plotpdffit(x,pdf)
 
 % Plot the hist
 [N Bins] = hist(x,max(x)-min(x));
-Bins = Bins+0.5
+Bins = Bins+0.5;
 stem(Bins,N/length(x)); hold on;
 
 % Plot the pdf fit
