@@ -16,7 +16,7 @@ class SingnalPoint(object):
 		else:
 			string += '{} (x={},y={}):\n'.format(self.name,self.x,self.y)
 			for key in self.SampleDict.keys():
-				string += '{} -> {}\n'.format(key,len(self.SampleDict[key]['RSSI']))
+				string += '{} -> {} samples\n'.format(key,len(self.SampleDict[key]['RSSI']))
 			
 			return string
 
