@@ -71,12 +71,13 @@ def Rawdata2Dict_android(FilePath,MacFileter = ['']):
 				MacAddr = words[2]
 				UUID = words[3]
 				RSSI = words[6]
+				Tag = Mac2Tag(MacAddr)
 				if MacAddr in MacFileter or '' in MacFileter:
 					if MacAddr in SampleDict:  # if the mac already in dict
 						SampleDict[MacAddr]['RSSI'].append(RSSI)
 						pass
-					else:
-						SampleDict.update({MacAddr:{'RSSI':[RSSI]}}) # if a new mac is found
+					else: # if a new mac is found
+						SampleDict.update({MacAddr:{'Tag':Tag,'RSSI':[RSSI]}}) 
 					pass
 	return SampleDict
 

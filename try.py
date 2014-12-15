@@ -1,7 +1,10 @@
+import math
+# import pandas as pd
 import numpy as np
 import scipy as sc
+import scipy.special as special
 import scipy.io as io 
-import matplotlib.pyplot as plt  
+import matplotlib.pyplot as plt
 
 
 a = np.ones((2,2))
@@ -20,5 +23,5 @@ print b
 # plt.bar(left = (0,1),height = (1,0.5),width = 0.35)
 # plt.show()
 
-bm = [np.mean(b[i]) for i in [0,1]]
-print bm
+# print special.gamma([1,2,3])
+print len(b)
