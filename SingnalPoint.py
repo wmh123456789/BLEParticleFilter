@@ -17,6 +17,9 @@ class SingnalPoint(object):
 		self.name = ''
 		self.SampleDict = {}
 		self.StatDict = {}
+		self.RSSIMax = -35
+		self.RIISMin = -90
+		self.RSSIBins = list(xrange(self.RIISMin,self.RSSIMax+1))
 
 	def __str__(self):
 		string = ''
@@ -38,7 +41,6 @@ class SingnalPoint(object):
 		RootDir,FileName = os.path.split(FilePath)
 		self.name = FileName.split('_')[0]
 		pass
-
 	# Calc Statics data of sample data
 	# Output :  {ID:{'RSSI':xx, 'mean':xx, ...},...}
 	def CalcStatDict(self):
@@ -50,6 +52,7 @@ class SingnalPoint(object):
 				self.StatDict.update({key:{
 					'N' : len(self.SampleDict[key]['RSSI']),
 					'RSSI': aRSSI,
+					'hist': np.histogram(aRSSI,self.RSSIBins)[0],
 					'mean': np.mean(aRSSI),
 					'mid' : np.median(aRSSI),
 					'std' : np.std(aRSSI),

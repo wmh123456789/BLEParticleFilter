@@ -9,7 +9,12 @@ import matplotlib.pyplot as plt
 
 a = np.ones((2,2))
 b = np.array([[1,2],[3,4]])
-print b
+c = np.array(list(xrange(1,10)))
+d = np.array([1,2,3,2.5,2.2,3.1,4,5])
+
+hist= np.histogram(d,[1,2,3,4,5])
+print hist[0]
+
 
 # Save mat related
 # dic = {
@@ -24,4 +29,3 @@ print b
 # plt.show()
 
 # print special.gamma([1,2,3])
-print len(b)

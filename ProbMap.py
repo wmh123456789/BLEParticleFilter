@@ -6,8 +6,23 @@ class ProbMap(object):
 	def __init__(self):
 		super(ProbMap, self).__init__()
 		self.SPDict = {}
-		self.KeyDict = {} # Orin data, the key of the source, MacAddr or Major-Minor
-		self.ProbDict = {} 
+		self.KeyDict = {}  # Orin data, the key of the source, MacAddr or Major-Minor
+		self.ProbDict = {} 		
+		
+		self.RSSIHist = {}
+
+	# def InitRSSIHist(self):
+	# 	for key in self.KeyDict:
+	# 		self.RSSIHist.update({key:[]})
+
+	def CalcRSSIHist(self):
+		for SPName in self.SPDict:
+			SP = self.SPDict[SPName]
+			for key in SP.StatDict:
+				if key in self.RSSIHist:
+					self.RSSIHist[key] += SP.StatDict[key]['hist']
+				else:
+					self.RSSIHist.update({key:SP.StatDict[key]['hist']})
 
 
 	def LoadSingnalPoint(self,SP):
@@ -46,15 +61,18 @@ def main():
 			SP.LoadSampleDict(os.path.join(RootDir,FileName))
 			SP.LocName2XY()
 			SP.CalcStatDict()
-			print SP
+			# print SP
 
 			PMap.LoadSingnalPoint(SP)
 
 	PMap.GenKeyDict()
 
 
-	print PMap.KeyDict.keys()
-	print PMap.KeyDict['78:A5:04:41:5A:26']['A']['RSSI']
+	key = '78:A5:04:41:5A:26'
+	# print PMap.KeyDict.keys()
+	# print PMap.KeyDict['78:A5:04:41:5A:26']['A']['RSSI']
+	PMap.CalcRSSIHist()
+	print PMap.RSSIHist[key]/float(np.sum(PMap.RSSIHist[key]))
 
 
 
