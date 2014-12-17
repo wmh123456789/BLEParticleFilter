@@ -46,8 +46,12 @@ class ProbMap(object):
 
 	# Calc. the probability distribution of each key, over SPs
 	def CalcProbDict(self):
-		for key in KeyDict:
-			pass
+		for key in self.KeyDict:
+			for SPName in self.SPDict:
+
+				for 
+				self.ProbDict.update(key:{SPName:{}})
+				pass
 
 
 
