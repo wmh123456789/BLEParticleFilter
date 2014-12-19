@@ -7,13 +7,28 @@ import scipy.io as io
 import matplotlib.pyplot as plt
 
 
-a = np.ones((2,2))
+a = [1,2,3,4]
 b = np.array([[1,2],[3,4]])
 c = np.array(list(xrange(1,10)))
 d = np.array([1,2,3,2.5,2.2,3.1,4,5])
+e = np.array([4,3,3,2.5,4.2,3.1,4,5])
 
-hist= np.histogram(d,[1,2,3,4,5])
-print hist[0]
+bins = [1,2,3,4,5]
+histd = np.histogram(d,[1,2,3,4,5])
+histe = np.histogram(e,[1,2,3,4,5])
+print histd[0],histe[0]
+print histd[0]/(histe[0]+0.0001)
+m = {}
+m0 = {}
+for x in a:
+	m0 = {}
+	for i,rssi in enumerate(bins[0:-1]):
+		print i , rssi
+		m0.update({rssi:x+histd[0][i]})
+	m.update({x:m0})
+
+print histd[0],histe[0]
+print histe[0]/(histd[0]+0.00001) 
 
 
 # Save mat related
