@@ -18,8 +18,8 @@ class SingnalPoint(object):
 		self.SampleDict = {}
 		self.StatDict = {}
 		self.RSSIMax = -30
-		self.RIISMin = -90
-		self.RSSIBins = list(xrange(self.RIISMin,self.RSSIMax+1))
+		self.RSSIMin = -90
+		self.RSSIBins = list(xrange(self.RSSIMin,self.RSSIMax+1))
 
 	def __str__(self):
 		string = ''
@@ -47,7 +47,7 @@ class SingnalPoint(object):
 	def FitRSSIToTheRange(self):
 		for key in self.SampleDict:
 			for i,rssi in enumerate(self.SampleDict[key]['RSSI']):
-				if rssi >= self.RSSIMax:
+				if int(rssi) >= self.RSSIMax:
 					self.SampleDict[key]['RSSI'][i] = self.RSSIMax-1
 				elif rssi <= self.RSSIMin:
 					self.SampleDict[key]['RSSI'][i] = self.RSSIMin+1

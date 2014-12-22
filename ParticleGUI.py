@@ -68,11 +68,11 @@ def InitProbMap():
 	PMap.CalcProbDict()
 
 	RssiVector = {}
-	SPName = 'A'
+	SPName = 'O'
 	for key in PMap.SPDict[SPName].StatDict:
 		mean = int(PMap.SPDict[SPName].StatDict[key]['mean'])
 		RssiVector.update({key:mean})
-	# print RssiVector
+	print RssiVector
 	ResultDict = PMap.CalcJointProb(RssiVector)
 	return ResultDict
 
@@ -99,12 +99,12 @@ def main():
 	win = DisplayFrame(400,400,'Particles')
 	win.initParticleGroup(pg_Anchor,'red',size=8)
 
-	win.top.mainloop()
+	
 
 	ResultDict = InitProbMap()
 	print ResultDict
 
-
+	win.top.mainloop()
 
 if __name__ == "__main__":
 	main()

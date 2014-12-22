@@ -10,7 +10,7 @@ class ProbMap(object):
 		self.ProbDict = {} 			
 		self.GlobalRSSIHist = {}
 		self.RSSIMax  = 0
-		self.RIISMin  = 0
+		self.RSSIMin  = 0
 		self.RSSIBins = []
 
 
@@ -29,7 +29,7 @@ class ProbMap(object):
 	def LoadSingnalPoint(self,SP):
 		self.SPDict.update({SP.name:SP})
 		self.RSSIMax  = SP.RSSIMax 
-		self.RIISMin  = SP.RIISMin 
+		self.RSSIMin  = SP.RSSIMin 
 		self.RSSIBins = SP.RSSIBins
 		pass
 
@@ -79,8 +79,8 @@ class ProbMap(object):
 					ResultDict[SPName] += v*v
 				else:
 					ResultDict.update({SPName:v})
-		# for SPName in ResultDict:
-		# 	ResultDict[SPName] = ResultDict[SPName]**0.5
+		for SPName in ResultDict:
+			ResultDict[SPName] = ResultDict[SPName]**0.5
 		return ResultDict
 
 
@@ -134,11 +134,11 @@ def main():
 
 
 	RssiVector = {}
-	SPName = 'C'
+	SPName = 'A'
 	for key in PMap.SPDict[SPName].StatDict:
 		mean = int(PMap.SPDict[SPName].StatDict[key]['mean'])
 		RssiVector.update({key:mean})
-	# print RssiVector
+	print RssiVector
 	ResultDict = PMap.CalcJointProb(RssiVector)
 	print ResultDict
 
