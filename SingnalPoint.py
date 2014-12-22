@@ -17,7 +17,7 @@ class SingnalPoint(object):
 		self.name = ''
 		self.SampleDict = {}
 		self.StatDict = {}
-		self.RSSIMax = -35
+		self.RSSIMax = -30
 		self.RIISMin = -90
 		self.RSSIBins = list(xrange(self.RIISMin,self.RSSIMax+1))
 
@@ -40,7 +40,18 @@ class SingnalPoint(object):
 		self.SampleDict = Rawdata2Dict(FilePath)
 		RootDir,FileName = os.path.split(FilePath)
 		self.name = FileName.split('_')[0]
+		self.FitRSSIToTheRange()
 		pass
+
+	# Fit all rssi value to the range (RSSIMin,RSSIMax)
+	def FitRSSIToTheRange(self):
+		for key in self.SampleDict:
+			for i,rssi in enumerate(self.SampleDict[key]['RSSI']):
+				if rssi >= self.RSSIMax:
+					self.SampleDict[key]['RSSI'][i] = self.RSSIMax-1
+				elif rssi <= self.RSSIMin:
+					self.SampleDict[key]['RSSI'][i] = self.RSSIMin+1
+
 	# Calc Statics data of sample data
 	# Output :  {ID:{'RSSI':xx, 'mean':xx, ...},...}
 	def CalcStatDict(self):
@@ -110,6 +121,7 @@ def main():
 			SP.LocName2XY()
 			SP.CalcStatDict()
 			print SP
+
 	
 
 if __name__ == '__main__':

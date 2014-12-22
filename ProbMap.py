@@ -19,9 +19,11 @@ class ProbMap(object):
 			SP = self.SPDict[SPName]
 			for key in SP.StatDict:
 				if key in self.GlobalRSSIHist:
-					self.GlobalRSSIHist[key] += SP.StatDict[key]['hist']
+					self.GlobalRSSIHist[key] += np.array(SP.StatDict[key]['hist'])
 				else:
-					self.GlobalRSSIHist.update({key:SP.StatDict[key]['hist']})
+					v = np.array(SP.StatDict[key]['hist'])
+					self.GlobalRSSIHist.update({key:v})
+
 
 
 	def LoadSingnalPoint(self,SP):
@@ -47,6 +49,7 @@ class ProbMap(object):
 						pass
 
 	# Calc. the probability distribution of each key, over SPs
+	# ProbDict[key](x) = P(SPName|RSSI=x)
 	def CalcProbDict(self):
 		for key in self.KeyDict:
 			sp_dict = {}
@@ -65,6 +68,21 @@ class ProbMap(object):
 					print 'Hist length is not match ~',len (self.GlobalRSSIHist[key])
 			self.ProbDict.update({key:sp_dict})
 		# print len(self.ProbDict)
+
+	# Calc. the joint probility of the RSSI-vector in this prob map
+	def CalcJointProb(self,RssiVector):
+		ResultDict = {}
+		for key in RssiVector:
+			for SPName in self.ProbDict[key]:
+				v = self.ProbDict[key][SPName][RssiVector[key]]
+				if SPName in ResultDict:
+					ResultDict[SPName] += v*v
+				else:
+					ResultDict.update({SPName:v})
+		# for SPName in ResultDict:
+		# 	ResultDict[SPName] = ResultDict[SPName]**0.5
+		return ResultDict
+
 
 def main():
 	RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141201NineP\8M'
@@ -94,7 +112,7 @@ def main():
 	# 	print key, PMap.GlobalRSSIHist[key]
 
 
-	rssi = -71
+	# rssi = -70
 	# for key in PMap.ProbDict:
 	# 	print '==========',key
 	# 	p = []
@@ -104,14 +122,26 @@ def main():
 	# 		if rssi in PMap.ProbDict[key][SPName]:
 	# 			p.append(PMap.ProbDict[key][SPName][rssi]) 
 	# 			print PMap.ProbDict[key][SPName][rssi]
-	# 	print sum(p)
-			
-	for key in PMap.ProbDict:
-		print '==========',key
-		SPName = 'A'
-		if rssi in PMap.ProbDict[key][SPName]:
-			print PMap.GlobalRSSIHist[key]
-			print PMap.SPDict[SPName].StatDict[key]['hist']
+		# print sum(p)
+	
+	# print '\n\n=============  For Debug  =================='
+	# for key in PMap.ProbDict:
+	# 	print '==========',key
+	# 	SPName = 'A'
+	# 	if rssi in PMap.ProbDict[key][SPName]:
+	# 		print PMap.GlobalRSSIHist[key]
+	# 		print PMap.SPDict[SPName].StatDict[key]['hist']
+
+
+	RssiVector = {}
+	SPName = 'C'
+	for key in PMap.SPDict[SPName].StatDict:
+		mean = int(PMap.SPDict[SPName].StatDict[key]['mean'])
+		RssiVector.update({key:mean})
+	# print RssiVector
+	ResultDict = PMap.CalcJointProb(RssiVector)
+	print ResultDict
+
 
 
 if __name__ == '__main__':
