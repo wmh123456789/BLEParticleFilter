@@ -1,8 +1,9 @@
 # All param in the test
+from ParseRawData import *
 
 # == ProbMap.py ==
 # -- CalcJointProb --
-SPwieght_pow_index = 0.5
+SPwieght_pow_index = 1
 
 
 
@@ -39,18 +40,27 @@ DeviceFilter = MacDict.keys()
 
 # == ParticleGUI.py ==
 # -- main --
-RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141201NineP\8M'
+# RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141201NineP\8M'
+RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data'
 ZoomFactor = 150
-AnchorDict = { 'A' :(0.0,0.0),
-				'AB':(1.0,0.0),
-				'B' :(2.0,0.0),
-				'BC':(2.0,1.0),
-				'C' :(2.0,2.0),
-				'CD':(1.0,2.0),
-				'D' :(0.0,2.0),
-				'AD':(0.0,1.0),
-				'O' :(1.0,1.0) 
-			}
-ShowPointList = ['A','B','C','D','AB','BC','CD','AD','O']
+# AnchorDict = { 'A' :(0.0,0.0),
+# 				'AB':(1.0,0.0),
+# 				'B' :(2.0,0.0),
+# 				'BC':(2.0,1.0),
+# 				'C' :(2.0,2.0),
+# 				'CD':(1.0,2.0),
+# 				'D' :(0.0,2.0),
+# 				'AD':(0.0,1.0),
+# 				'O' :(1.0,1.0) 
+# 			}
+# ShowPointList = ['A','B','C','D','AB','BC','CD','AD','O']
+
+# == SingnalPoint.py ==
+# -- SingnalPoint.LocName2XY --
+FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
+AnchorDict = LoadSPCoord(FilePath)
+ShowPointList = AnchorDict.keys()
+
+
 
 BestN = 3

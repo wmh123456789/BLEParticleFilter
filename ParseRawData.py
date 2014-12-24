@@ -98,6 +98,20 @@ def Rawdata2Dict(FilePath,DeviceFilter = ['']):
 		return {}
 
 
+'''
+Load the SP coordinates from .coord file
+output : {ID:(x,y),...}
+'''
+def LoadSPCoord(FilePath):
+	SPCoord = {}
+	for line in open(FilePath).readlines():
+		words = line.split()
+		if len(words) == 3 :
+			SPCoord.update({words[0]:(words[1],words[2])})
+	return SPCoord
+
+
+
 def GenMatlabFile(FilePath,MacFileter = ['']):
 	# SampleDict = Rawdata2Dict_ios(FilePath,MacFileter)
 	# SampleDict = Rawdata2Dict_android(FilePath,MacFileter)
@@ -158,15 +172,17 @@ def TXT2CSV(RootDir):
 
 
 
-
-
-
-
-
 def main():
-	RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
-	TXT2CSV(RootDir)
+	# RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
+	# TXT2CSV(RootDir)
 
+	FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data\T-1.txt'
+	RawD = Rawdata2Dict(FilePath)
+	print RawD.keys()
+
+	FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
+	SPCoord = LoadSPCoord(FilePath)
+	print SPCoord
 
 if __name__ == '__main__':
 	main()

@@ -70,6 +70,8 @@ def InitProbMap(RootDir):
 
 	PMap.GenKeyDict()
 	PMap.CalcGlobalRSSIHist()
+	print PMap.KeyDict.keys()
+	print PMap.SPDict.keys()
 	PMap.CalcProbDict()
 	return PMap
 
@@ -131,7 +133,7 @@ def main():
 	for SPName in LocDict:
 		pg_Anchor.NewParticle(SPName,LocDict[SPName][0]*ZoomFactor,LocDict[SPName][1]*ZoomFactor)
 
-	win = DisplayFrame(400,400,title='LocationShow')
+	win = DisplayFrame(1280,1024,title='LocationShow')
 	win.initParticleGroup(pg_Anchor,'red',size=8)
 
 	# Draw Result

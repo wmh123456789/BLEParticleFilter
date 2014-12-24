@@ -57,7 +57,8 @@ class ProbMap(object):
 			for SPName in self.SPDict:
 				SP = self.SPDict[SPName]
 				Bins = SP.RSSIBins
-				hist_sp = SP.StatDict[key]['hist']
+				print 'Major-Minor:',key
+				hist_sp = SP.StatDict[key]['hist'] #TODO:Check whether the key in this SP
 				
 				if len(hist_sp) == len (self.GlobalRSSIHist[key]):
 					pdf = hist_sp/(self.GlobalRSSIHist[key]+0.00001)

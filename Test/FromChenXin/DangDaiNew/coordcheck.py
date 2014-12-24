@@ -4,7 +4,7 @@ from numpy import array
 
 def plotBeaconNodes(imageFile, coordFile, saveFile):
 	im = Image.open(imageFile)
-	font = ImageFont.truetype("../FreeMono.ttf", 30)
+	# font = ImageFont.truetype("../FreeMono.ttf", 30)
 
 	f = open(coordFile, "r")
 	xy = []
@@ -19,7 +19,8 @@ def plotBeaconNodes(imageFile, coordFile, saveFile):
 
 	draw = ImageDraw.Draw(im)
 	for i, p in enumerate(xy):
-		draw.text(p, "%d" % (i+1), font=font, fill=(255, 0, 0, 255))
+		# draw.text(p, "%d" % (i+1), font=font, fill=(255, 0, 0, 255))
+		draw.text(p, "%d" % (i+1),fill=(255, 0, 0, 255))
 
 	im.save(saveFile)
 	

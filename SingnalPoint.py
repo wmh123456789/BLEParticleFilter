@@ -98,16 +98,17 @@ class SingnalPoint(object):
 
 	def LocName2XY(self):
 		# Name : [x,y], x,y are relative coordinates
-		LocDict = { 'A' :(0,0),
-					'AB':(1,0),
-					'B' :(2,0),
-					'BC':(2,1),
-					'C' :(2,2),
-					'CD':(1,2),
-					'D' :(0,2),
-					'AD':(0,1),
-					'O' :(1,1) 
-					}
+		# LocDict = { 'A' :(0,0),
+		# 			'AB':(1,0),
+		# 			'B' :(2,0),
+		# 			'BC':(2,1),
+		# 			'C' :(2,2),
+		# 			'CD':(1,2),
+		# 			'D' :(0,2),
+		# 			'AD':(0,1),
+		# 			'O' :(1,1) 
+		# 			}
+		LocDict = A.AnchorDict
 		self.x, self.y = LocDict[self.name]
 
 
