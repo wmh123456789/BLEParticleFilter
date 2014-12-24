@@ -6,7 +6,7 @@ import scipy as sc
 import scipy.special as special
 import scipy.io as io 
 import matplotlib.pyplot as plt
-
+import AllParaminTest as A
 
 class SingnalPoint(object):
 	"""docstring for SingnalPoint"""
@@ -36,8 +36,8 @@ class SingnalPoint(object):
 			
 			return string
 
-	def LoadSampleDict(self,FilePath):
-		self.SampleDict = Rawdata2Dict(FilePath)
+	def LoadSampleDict(self,FilePath,DeviceFilter = A.DeviceFilter):
+		self.SampleDict = Rawdata2Dict(FilePath,DeviceFilter)
 		RootDir,FileName = os.path.split(FilePath)
 		self.name = FileName.split('_')[0]
 		self.FitRSSIToTheRange()

@@ -4,15 +4,15 @@ import tkFileDialog
 from Particle import *
 from PIL import Image, ImageTk
 from ProbMap import *
-
+import AllParaminTest as A
 
 class DisplayFrame(object):
 	"""docstring for DisplayFrame"""
-	def __init__(self,width,height,title=''):
+	def __init__(self,width,height,Margin = 0,title=''):
 		super(DisplayFrame, self).__init__()
 		# self.top = Toplevel()
 		self.top = Tk()
-		self.top.geometry(str(width)+'x'+str(height))
+		self.top.geometry(str(width)+'x'+str(height)+'+'+str(Margin)+'+'+str(Margin))
 		self.top.title(title)
 		self.width = width
 		self.height = height
@@ -26,13 +26,20 @@ class DisplayFrame(object):
 
 	def initParticleGroup(self,PG,color='blue',size = 5):
 		for i in PG.group:
-			print str(PG.group[i])
+			# print str(PG.group[i])
 			rec = self.C.create_rectangle(
 					PG.group[i].x,
                     PG.group[i].y,
 					PG.group[i].x+size,
 					PG.group[i].y+size, 
 					fill=color, tags=PG.group[i].tag)
+			text = self.C.create_text(
+					PG.group[i].x+size,
+                    PG.group[i].y+size,
+                    fill = color,
+                    anchor = NW,
+                    text = PG.group[i].id
+				)
 
 
 
@@ -50,9 +57,7 @@ def main0():
 	pass
 
 
-def InitProbMap():
-	RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141201NineP\8M'
-
+def InitProbMap(RootDir):
 	PMap = ProbMap()
 	for FileName in os.listdir(RootDir):
 		if '.txt' in FileName:
@@ -66,67 +71,71 @@ def InitProbMap():
 	PMap.GenKeyDict()
 	PMap.CalcGlobalRSSIHist()
 	PMap.CalcProbDict()
+	return PMap
 
-	RssiVector = {}
-	SPName = 'CD'
-	for key in PMap.SPDict[SPName].StatDict:
-		mean = int(PMap.SPDict[SPName].StatDict[key]['mean'])
-		RssiVector.update({key:mean})
-	print RssiVector
-	ResultDict = PMap.CalcJointProb(RssiVector)
-	return ResultDict
+
 
 # Calc the final location with the prob on all SP 
 def CalcResultLoc(ResultDict,LocDict):
-	Loc = np.array((0,0))
+	Loc = np.array((0.0,0.0))
 	TotalWeight = 0.0
 	for SPName in ResultDict:
 		Loc += np.array(LocDict[SPName]) * ResultDict[SPName] 
 		TotalWeight += ResultDict[SPName] 
 
+	print Loc,TotalWeight
 	return Loc/TotalWeight
 
 # Calc the final location with the best N SP
 def CalcResultLoc_bestN(ResultDict,LocDict,N=1):
-	# Pick up best N
-	BestResult = sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)[0:N]
-	print BestResult
-	return CalcResultLoc({item[0]:item[1] for item in BestResult },LocDict)
-
+	if N > 0 and N <= len(ResultDict) :
+		# Pick up best N
+		BestResult = sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)[0:N]
+		print BestResult
+		return CalcResultLoc({item[0]:item[1] for item in BestResult },LocDict)
+	else:
+		return CalcResultLoc(ResultDict,LocDict)
 	pass
+
+def LocationByRV_test (SPName,PMap):
+	RssiVector = {}
+	for key in PMap.SPDict[SPName].StatDict:
+		mean = int(PMap.SPDict[SPName].StatDict[key]['mean'])
+		RssiVector.update({key:mean})
+	# print RssiVector
+	ResultDict = PMap.CalcJointProb(RssiVector)
+	return ResultDict
 
 
 
 
 def main():
-	ZoomFactor = 150
-	LocDict = { 'A' :(0,0),
-				'AB':(1,0),
-				'B' :(2,0),
-				'BC':(2,1),
-				'C' :(2,2),
-				'CD':(1,2),
-				'D' :(0,2),
-				'AD':(0,1),
-				'O' :(1,1) 
-			}
+	ZoomFactor = A.ZoomFactor
+	LocDict = A.AnchorDict
+	RootDir = A.RootDir
+	PM = InitProbMap(RootDir)
+	
+	# Show Result on the map
+	pg_Point = ParticleGroup()
+	ShowPointList = A.ShowPointList
+	for name in ShowPointList:
+		ResultDict = LocationByRV_test(name,PM)
+		print sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)
+		Loc = CalcResultLoc_bestN (ResultDict,LocDict,A.BestN) * ZoomFactor
+		# Loc = CalcResultLoc(ResultDict,LocDict) * ZoomFactor
+		print 'LocResult:',Loc
+		pg_Point.NewParticle(name+'_',Loc[0],Loc[1])
+
+	# Draw Anchor Points
 	pg_Anchor = ParticleGroup()
 	for SPName in LocDict:
-		pg_Anchor.NewParticle(SPName,20+LocDict[SPName][0]*ZoomFactor,20+LocDict[SPName][1]*ZoomFactor)
+		pg_Anchor.NewParticle(SPName,LocDict[SPName][0]*ZoomFactor,LocDict[SPName][1]*ZoomFactor)
 
-	win = DisplayFrame(400,400,'Particles')
+	win = DisplayFrame(400,400,title='LocationShow')
 	win.initParticleGroup(pg_Anchor,'red',size=8)
 
-	ResultDict = InitProbMap()
-	print sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)
-
-	Loc = CalcResultLoc_bestN (ResultDict,LocDict,3) * ZoomFactor
-	# Loc = CalcResultLoc(ResultDict,LocDict) * ZoomFactor
-	pg_Point = ParticleGroup()
-	pg_Point.NewParticle('p',Loc[0],Loc[1])
+	# Draw Result
 	win.initParticleGroup(pg_Point,'blue',size=12)
-
-
 	win.top.mainloop()
 
 if __name__ == "__main__":

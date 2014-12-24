@@ -1,5 +1,6 @@
 # probability map over singnal points
 from SingnalPoint import *
+import AllParaminTest as A
 
 class ProbMap(object):
 	"""docstring for ProbMap"""
@@ -80,12 +81,12 @@ class ProbMap(object):
 				else:
 					ResultDict.update({SPName:v})
 		for SPName in ResultDict:
-			ResultDict[SPName] = ResultDict[SPName]**0.5
+			ResultDict[SPName] = ResultDict[SPName]**A.SPwieght_pow_index
 		return ResultDict
 
 
 def main():
-	RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141201NineP\8M'
+	RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141201NineP\5M'
 	# FileName =  'A_8_20141201T172926.txt'
 	PMap = ProbMap()
 	for FileName in os.listdir(RootDir):
