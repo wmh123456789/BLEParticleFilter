@@ -50,7 +50,7 @@ def main0():
 	pass
 
 
-	win = DisplayFrame(800,600,'Particles')
+	win = DisplayFrame(A.WinW,A.WinH,'Particles')
 	win.initParticleGroup(pg,'red')
 
 	win.top.mainloop()
@@ -133,7 +133,7 @@ def main():
 	for SPName in LocDict:
 		pg_Anchor.NewParticle(SPName,LocDict[SPName][0]*ZoomFactor,LocDict[SPName][1]*ZoomFactor)
 
-	win = DisplayFrame(1280,1024,title='LocationShow')
+	win = DisplayFrame(A.WinW,A.WinH,title='LocationShow')
 	win.initParticleGroup(pg_Anchor,'red',size=8)
 
 	# Draw Result
