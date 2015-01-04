@@ -51,6 +51,7 @@ class SingnalPoint(object):
 					self.SampleDict[key]['RSSI'][i] = self.RSSIMax-1
 				elif rssi <= self.RSSIMin:
 					self.SampleDict[key]['RSSI'][i] = self.RSSIMin+1
+					print rssi,self.SampleDict[key]['RSSI'][i]
 
 	# Calc Statics data of sample data
 	# Output :  {ID:{'RSSI':xx, 'mean':xx, ...},...}
