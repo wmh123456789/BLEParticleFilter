@@ -70,8 +70,8 @@ def InitProbMap(RootDir):
 
 	PMap.GenKeyDict()
 	PMap.CalcGlobalRSSIHist()
-	print PMap.KeyDict.keys()
-	print PMap.SPDict.keys()
+	# print PMap.KeyDict.keys()
+	# print PMap.SPDict.keys()
 	PMap.CalcProbDict()
 	return PMap
 
@@ -85,7 +85,7 @@ def CalcResultLoc(ResultDict,LocDict):
 		Loc += np.array(LocDict[SPName]) * ResultDict[SPName] 
 		TotalWeight += ResultDict[SPName] 
 
-	print Loc,TotalWeight
+	# print Loc,TotalWeight
 	return Loc/TotalWeight
 
 # Calc the final location with the best N SP
@@ -93,7 +93,7 @@ def CalcResultLoc_bestN(ResultDict,LocDict,N=1):
 	if N > 0 and N <= len(ResultDict) :
 		# Pick up best N
 		BestResult = sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)[0:N]
-		print BestResult
+		# print BestResult
 		return CalcResultLoc({item[0]:item[1] for item in BestResult },LocDict)
 	else:
 		return CalcResultLoc(ResultDict,LocDict)
@@ -103,6 +103,10 @@ def LocationByRV_test (SPName,PMap):
 	RssiVector = {}
 	for key in PMap.SPDict[SPName].StatDict:
 		mean = int(PMap.SPDict[SPName].StatDict[key]['mean'])
+		# Debug
+		if mean <-90:
+			print 'Found unuausal value in',key,mean
+		#- Debug
 		RssiVector.update({key:mean})
 	# print RssiVector
 	ResultDict = PMap.CalcJointProb(RssiVector)
@@ -122,7 +126,7 @@ def main():
 	ShowPointList = A.ShowPointList
 	for name in ShowPointList:
 		ResultDict = LocationByRV_test(name,PM)
-		print sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)
+		# print sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)
 		Loc = CalcResultLoc_bestN (ResultDict,LocDict,A.BestN) * ZoomFactor
 		# Loc = CalcResultLoc(ResultDict,LocDict) * ZoomFactor
 		print 'LocResult:',Loc

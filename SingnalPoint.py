@@ -47,11 +47,13 @@ class SingnalPoint(object):
 	def FitRSSIToTheRange(self):
 		for key in self.SampleDict:
 			for i,rssi in enumerate(self.SampleDict[key]['RSSI']):
+				if rssi == '-94':
+					print int(rssi),self.RSSIMin
 				if int(rssi) >= self.RSSIMax:
 					self.SampleDict[key]['RSSI'][i] = self.RSSIMax-1
-				elif rssi <= self.RSSIMin:
+				elif int(rssi) <= self.RSSIMin:
 					self.SampleDict[key]['RSSI'][i] = self.RSSIMin+1
-					print rssi,self.SampleDict[key]['RSSI'][i]
+
 
 	# Calc Statics data of sample data
 	# Output :  {ID:{'RSSI':xx, 'mean':xx, ...},...}
@@ -61,6 +63,11 @@ class SingnalPoint(object):
 		else:
 			for key in self.SampleDict:
 				aRSSI = np.asarray(self.SampleDict[key]['RSSI'],dtype=np.int)
+				# Debug
+				if np.mean(aRSSI) < -90:
+					print 'Unusual RSSI in:',self.name,key 
+					print self.SampleDict[key]['RSSI']
+				# - Debug
 				self.StatDict.update({key:{
 					'N' : len(self.SampleDict[key]['RSSI']),
 					'RSSI': aRSSI,

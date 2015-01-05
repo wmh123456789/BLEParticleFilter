@@ -57,7 +57,7 @@ class ProbMap(object):
 			for SPName in self.SPDict:
 				SP = self.SPDict[SPName]
 				Bins = SP.RSSIBins
-				print 'Major-Minor:',key
+				# print 'Major-Minor:',key
 				if key in SP.StatDict:
 					hist_sp = SP.StatDict[key]['hist']
 				else:
@@ -70,7 +70,8 @@ class ProbMap(object):
 						rssi_dict.update({rssi:pdf[i]})
 					sp_dict.update({SPName:rssi_dict})
 				else:
-					print 'Hist length is not match ~',len (self.GlobalRSSIHist[key])
+					print 'Hist length is not match ~',len(self.GlobalRSSIHist[key])
+					pass
 			self.ProbDict.update({key:sp_dict})
 		# print len(self.ProbDict)
 
@@ -79,7 +80,7 @@ class ProbMap(object):
 		ResultDict = {}
 		for key in RssiVector:
 			for SPName in self.ProbDict[key]:
-				print SPName,key,RssiVector[key]
+				# print SPName,key,RssiVector[key]
 				v = self.ProbDict[key][SPName][RssiVector[key]]
 				if SPName in ResultDict:
 					ResultDict[SPName] += v*v
