@@ -43,64 +43,64 @@ DeviceFilter = MacDict.keys()
 
 # == ParticleGUI.py ==
 # -- main --
-WinH = 400
-WinW = 400
-RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
-ZoomFactor = 150
+WinH = 1024
+WinW = 1280
+# RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
+ZoomFactor = 1
 # # By HongBo
-AnchorDict = { 
-				# 'A' :(0.0,0.0),
-# 				'AB':(1.0,0.0),
-# 				'B' :(2.0,0.0),
-# 				'BC':(2.0,1.0),
-# 				'C' :(2.0,2.0),
-# 				'CD':(1.0,2.0),
-# 				'D' :(0.0,2.0),
-# 				'AD':(0.0,1.0),
-# 				'O' :(1.0,1.0) 
+# AnchorDict = { 
+# 				# 'A' :(0.0,0.0),
+# # 				'AB':(1.0,0.0),
+# # 				'B' :(2.0,0.0),
+# # 				'BC':(2.0,1.0),
+# # 				'C' :(2.0,2.0),
+# # 				'CD':(1.0,2.0),
+# # 				'D' :(0.0,2.0),
+# # 				'AD':(0.0,1.0),
+# # 				'O' :(1.0,1.0) 
 
-				# 'E' :(0.0,0.0),
-				# 'EF':(1.0,0.0),
-				# 'F' :(2.0,0.0),
-				# 'FG':(2.0,1.0),
-				# 'G' :(2.0,2.0),
-				# 'GH':(1.0,2.0),
-				# 'H' :(0.0,2.0),
-				# 'EH':(0.0,1.0),
-				# 'O' :(1.0,1.0) 
-			}
+# 				# 'E' :(0.0,0.0),
+# 				# 'EF':(1.0,0.0),
+# 				# 'F' :(2.0,0.0),
+# 				# 'FG':(2.0,1.0),
+# 				# 'G' :(2.0,2.0),
+# 				# 'GH':(1.0,2.0),
+# 				# 'H' :(0.0,2.0),
+# 				# 'EH':(0.0,1.0),
+# 				# 'O' :(1.0,1.0) 
+# 			}
 # ShowPointList = ['A','B','C','D','AB','BC','CD','AD','O']
 
 # # By Yuanliang
-AnchorDict = {  
-#				'A' :(0.0,0.0),
-# 				'AB':(1.0,0.0),
-# 				'B' :(2.0,0.0),
-# 				'BD':(2.0,1.0),
-# 				'C' :(0.0,2.0),
-# 				'CD':(1.0,2.0),
-# 				'D' :(2.0,2.0),
-# 				'AC':(0.0,1.0),
+# AnchorDict = {  
+# #				'A' :(0.0,0.0),
+# # 				'AB':(1.0,0.0),
+# # 				'B' :(2.0,0.0),
+# # 				'BD':(2.0,1.0),
+# # 				'C' :(0.0,2.0),
+# # 				'CD':(1.0,2.0),
+# # 				'D' :(2.0,2.0),
+# # 				'AC':(0.0,1.0),
+# # 				'O' :(1.0,1.0) 
+
+# 				'E' :(0.0,0.0),
+# 				'EF':(1.0,0.0),
+# 				'F' :(2.0,0.0),
+# 				'FH':(2.0,1.0),
+# 				'G' :(0.0,2.0),
+# 				'GH':(1.0,2.0),
+# 				'H' :(2.0,2.0),
+# 				'EG':(0.0,1.0),
 # 				'O' :(1.0,1.0) 
+# 			}
 
-				'E' :(0.0,0.0),
-				'EF':(1.0,0.0),
-				'F' :(2.0,0.0),
-				'FH':(2.0,1.0),
-				'G' :(0.0,2.0),
-				'GH':(1.0,2.0),
-				'H' :(2.0,2.0),
-				'EG':(0.0,1.0),
-				'O' :(1.0,1.0) 
-			}
-
-BestN = 3
+BestN = 0
 
 # == SingnalPoint.py ==
 # -- SingnalPoint.LocName2XY --
-# RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data'
-# FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
-# AnchorDict = LoadSPCoord(FilePath)
+RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data'
+FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
+AnchorDict = LoadSPCoord(FilePath)
 ShowPointList = AnchorDict.keys()
 
 

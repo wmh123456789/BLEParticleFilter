@@ -47,8 +47,6 @@ class SingnalPoint(object):
 	def FitRSSIToTheRange(self):
 		for key in self.SampleDict:
 			for i,rssi in enumerate(self.SampleDict[key]['RSSI']):
-				if rssi == '-94':
-					print int(rssi),self.RSSIMin
 				if int(rssi) >= self.RSSIMax:
 					self.SampleDict[key]['RSSI'][i] = self.RSSIMax-1
 				elif int(rssi) <= self.RSSIMin:

@@ -82,6 +82,7 @@ def CalcResultLoc(ResultDict,LocDict):
 	Loc = np.array((0.0,0.0))
 	TotalWeight = 0.0
 	for SPName in ResultDict:
+		print np.array(LocDict[SPName]), ResultDict[SPName]
 		Loc += np.array(LocDict[SPName]) * ResultDict[SPName] 
 		TotalWeight += ResultDict[SPName] 
 

@@ -107,7 +107,7 @@ def LoadSPCoord(FilePath):
 	for line in open(FilePath).readlines():
 		words = line.split()
 		if len(words) == 3 :
-			SPCoord.update({words[0]:(words[1],words[2])})
+			SPCoord.update({words[0]:(int(words[1]),int(words[2]))})
 	return SPCoord
 
 
