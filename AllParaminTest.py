@@ -46,7 +46,7 @@ DeviceFilter = MacDict.keys()
 WinH = 1024
 WinW = 1280
 # RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
-ZoomFactor = 1
+ZoomFactor = 0.5
 # # By HongBo
 # AnchorDict = { 
 # 				# 'A' :(0.0,0.0),
@@ -94,12 +94,14 @@ ZoomFactor = 1
 # 				'O' :(1.0,1.0) 
 # 			}
 
-BestN = 0
+BestN = 1
 
 # == SingnalPoint.py ==
 # -- SingnalPoint.LocName2XY --
-RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data'
-FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
+# RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data'
+RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\DangDaiNew\F1'
+# FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
+FilePath = r'e:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\DangDaiNew\DangDaiNew_F1.model.coord'
 AnchorDict = LoadSPCoord(FilePath)
 ShowPointList = AnchorDict.keys()
 
