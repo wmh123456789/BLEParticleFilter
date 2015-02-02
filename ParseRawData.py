@@ -58,20 +58,27 @@ def Rawdata2Dict_android(FilePath,MacFileter = ['']):
 	# All lines into Samplelist
 	# SampleList = [] 
 	# Dict structure for Samplelist, mac addr. as a key 
+	print MacFileter
 	SampleDict = {}
 	FormartConversion_android(FilePath)
+	# LineCnt = 0
 	for line in open(FilePath,'r').readlines():
 		if '//' in line or 'Timestamp' in line or len(line)<6: # Comments or blank line
 			pass
 		else:
+			# LineCnt += 1
 			words = line.split()
-			if len(words)>6:
-				Date = words[0]
-				Time = words[1]
-				MacAddr = words[2]
-				UUID = words[3]
-				RSSI = words[6]
+			if len(words)>5:
+				# Date = words[0]
+				Time = words[0]
+				MacAddr = words[1]
+				UUID = words[2]
+				MAJOR = words[3]
+				MINOR = words[4]
+				RSSI = words[5]
 				Tag = Mac2Tag(MacAddr)
+				if Tag == 'UnkownMac':
+					Tag = MAJOR+'-'+MINOR
 				if MacAddr in MacFileter or '' in MacFileter:
 					if MacAddr in SampleDict:  # if the mac already in dict
 						SampleDict[MacAddr]['RSSI'].append(RSSI)
@@ -109,7 +116,6 @@ def LoadSPCoord(FilePath):
 		if len(words) == 3 :
 			SPCoord.update({words[0]:(int(words[1]),int(words[2]))})
 	return SPCoord
-
 
 
 def GenMatlabFile(FilePath,MacFileter = ['']):
@@ -163,12 +169,34 @@ def Mac2Tag(MacAddr):
 		return 'UnkownMac'
 	pass
 
-
 def TXT2CSV(RootDir):
 	for FileName in os.listdir(RootDir):
 		if '.txt' in FileName:
 			RawFile = os.path.join(RootDir,FileName)
 			GenMatlabFile(RawFile)
+
+def DataRepick(InputFile,StartLine,EndLine,OutputFile):
+	# FormartConversion_android(InputFile)
+	fp_out = open(OutputFile,'w')
+	line_cnt = 0
+	for line in open(InputFile,'r').readlines():
+		if '//' in line or 'Timestamp' in line or len(line)<6: # Comments or blank line
+			fp_out.write(line)
+		else:
+			line_cnt += 1
+			if line_cnt >= StartLine and line_cnt <= EndLine:
+				fp_out.write(line)
+	fp_out.close()
+
+def DataRepick_dir(RootDir,SubDir,StartLine,EndLine):
+	if not os.path.isdir(os.path.join(RootDir,SubDir)):
+		os.mkdir(os.path.join(RootDir,SubDir))
+	for FileName in os.listdir(RootDir):
+		if '.txt' in FileName:
+			InputFile = os.path.join(RootDir,FileName)
+			OutputFile = os.path.join(RootDir,SubDir,FileName)
+			DataRepick(InputFile,StartLine,EndLine,OutputFile)
+
 
 
 
@@ -176,13 +204,18 @@ def main():
 	# RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
 	# TXT2CSV(RootDir)
 
-	FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data\T-1.txt'
-	RawD = Rawdata2Dict(FilePath)
-	print RawD.keys()
+	# FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data\T-1.txt'
+	# RawD = Rawdata2Dict(FilePath)
+	# print RawD.keys()
 
-	FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
-	SPCoord = LoadSPCoord(FilePath)
-	print SPCoord
+	# FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
+	# SPCoord = LoadSPCoord(FilePath)
+	# print SPCoord
+
+	RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\Data'
+	SubDir = 'repick'
+	DataRepick_dir(RootDir,SubDir,1100,1300)
+
 
 if __name__ == '__main__':
 	main()

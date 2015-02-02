@@ -65,7 +65,8 @@ def InitProbMap(RootDir):
 			SP.LoadSampleDict(os.path.join(RootDir,FileName))
 			SP.LocName2XY()
 			SP.CalcStatDict()
-			# print SP
+			print SP
+
 			PMap.LoadSingnalPoint(SP)
 
 	PMap.GenKeyDict()
@@ -100,6 +101,7 @@ def CalcResultLoc_bestN(ResultDict,LocDict,N=1):
 		return CalcResultLoc(ResultDict,LocDict)
 	pass
 
+# Use the mean of all training samples as the test sample
 def LocationByRV_test (SPName,PMap):
 	RssiVector = {}
 	for key in PMap.SPDict[SPName].StatDict:
@@ -111,22 +113,36 @@ def LocationByRV_test (SPName,PMap):
 		RssiVector.update({key:mean})
 	# print RssiVector
 	ResultDict = PMap.CalcJointProb(RssiVector)
-	return ResultDict
+	return [ResultDict]
 
-
+def LocationByRV (SPName,PMap,PMap_test):
+	RssiVector = {}
+	for key in PMap_test.SPDict[SPName].StatDict:
+		mean = int(PMap.SPDict[SPName].StatDict[key]['mean'])
+		# Debug
+		if mean <-90:
+			print 'Found unuausal value in',key,mean
+		#- Debug
+		RssiVector.update({key:mean})
+	# print RssiVector
+	ResultDict = PMap.CalcJointProb(RssiVector)
+	return [ResultDict]
 
 
 def main():
 	ZoomFactor = A.ZoomFactor
 	LocDict = A.AnchorDict
 	RootDir = A.RootDir
+	RootDir_test = A.RootDir_test
 	PM = InitProbMap(RootDir)
-	
+	PM_test = InitProbMap(RootDir_test)
+
+
 	# Show Result on the map
 	pg_Point = ParticleGroup()
 	ShowPointList = A.ShowPointList
 	for name in ShowPointList:
-		ResultDict = LocationByRV_test(name,PM)
+		ResultDict = LocationByRV_test(name,PM)[0]
 		# print sorted(ResultDict.items(), key=lambda d: d[1], reverse=True)
 		Loc = CalcResultLoc_bestN (ResultDict,LocDict,A.BestN) * ZoomFactor
 		# Loc = CalcResultLoc(ResultDict,LocDict) * ZoomFactor

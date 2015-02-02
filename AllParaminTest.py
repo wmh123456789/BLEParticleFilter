@@ -38,15 +38,15 @@ MacDict = {
 			'34:17:47:B3:BE:F2':'db', 
 			'3B:91:83:A3:05:03':'dc'
 			}
-DeviceFilter = MacDict.keys()
-
+# DeviceFilter = MacDict.keys()
+DeviceFilter = ['']
 
 # == ParticleGUI.py ==
 # -- main --
 WinH = 1024
 WinW = 1280
 # RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\20141202NineP\April'
-ZoomFactor = 0.5
+ZoomFactor = 1
 # # By HongBo
 # AnchorDict = { 
 # 				# 'A' :(0.0,0.0),
@@ -94,14 +94,16 @@ ZoomFactor = 0.5
 # 				'O' :(1.0,1.0) 
 # 			}
 
-BestN = 1
+BestN = 1    # 1 for the best 1 match, N for the best N match, 0 for All match
 
 # == SingnalPoint.py ==
 # -- SingnalPoint.LocName2XY --
 # RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data'
-RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\DangDaiNew\F1'
+# RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\DangDaiNew\F1'
+RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\Data'
+RootDir_test = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\Data\repick'
 # FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
-FilePath = r'e:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\DangDaiNew\DangDaiNew_F1.model.coord'
+FilePath = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\YouYiShou.model.coord'
 AnchorDict = LoadSPCoord(FilePath)
 ShowPointList = AnchorDict.keys()
 
