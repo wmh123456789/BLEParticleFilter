@@ -100,10 +100,10 @@ BestN = 1    # 1 for the best 1 match, N for the best N match, 0 for All match
 # -- SingnalPoint.LocName2XY --
 # RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\data'
 # RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\DangDaiNew\F1'
-RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\Data'
-RootDir_test = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\Data\repick'
+RootDir = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\HW3C'
+RootDir_test = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\HW3C'
 # FilePath = 'E:\= Workspaces\Git\BLEParticleFilter\Test\FromChenXin\MTC.model.coord'
-FilePath = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\YouYiShou.model.coord'
+FilePath = r'E:\= Workspaces\Git\BLEParticleFilter\Test\From HongBo\YouYiShou\HW3C_YouYiShou.model.coord'
 AnchorDict = LoadSPCoord(FilePath)
 ShowPointList = AnchorDict.keys()
 
